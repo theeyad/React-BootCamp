@@ -1,0 +1,12 @@
+.sidebar {
+  max-height: 350px;
+  border-radius: 5px;
+  border: 5px solid #35716e;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0.5em 3em;
+  align-items: center;
+  justify-content: center;
+}
