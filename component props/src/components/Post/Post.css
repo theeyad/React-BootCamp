@@ -1,0 +1,30 @@
+.post {
+  border: 5px solid #35716e;
+  border-radius: 5px;
+  padding: 1em 0.5em;
+}
+
+.post .post-title {
+  text-transform: capitalize;
+  font-size: 1.25rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 0.5em;
+}
+
+.post .sep {
+  background-color: #dddddd;
+  height: 2px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.post .post-body {
+  text-transform: capitalize;
+  display: block;
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 0.5em;
+  color: #888888;
+}

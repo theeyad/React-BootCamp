@@ -1,0 +1,14 @@
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  width: 1000px;
+  margin: 0 auto;
+  margin-top: 4em;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

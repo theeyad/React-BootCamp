@@ -1,0 +1,15 @@
+.tag-button {
+  background-color: rgb(119 2 115 / 85%);
+  color: white;
+  display: inline-block;
+  padding: 0.5em;
+  border-radius: 8px;
+  max-width: max-content;
+  box-shadow: 0px 2px 5px 0px rgb(0 0 0);
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #770273;
+  }
+}
