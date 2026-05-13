@@ -1,19 +1,72 @@
-import "./App.css";
+import { useState } from "react";
 
-// import Button from "./components/Button/Button";
-// import MyInput from "./components/MyInput/MyInput";
+const initialProducts = [
+  {
+    id: 0,
+    name: "Baklava",
+    count: 1,
+  },
+  {
+    id: 1,
+    name: "Cheese",
+    count: 5,
+  },
+  {
+    id: 2,
+    name: "Spaghetti",
+    count: 2,
+  },
+];
 
-import MyForm from "./components/MyForm/MyForm";
+export default function ShoppingCart() {
+  const [products, setProducts] = useState(initialProducts);
 
-function App() {
+  function handleIncreaseClick(productId) {
+    setProducts(
+      products.map((product) => {
+        if (product.id === productId) {
+          return {
+            ...product,
+            count: product.count + 1,
+          };
+        } else {
+          return product;
+        }
+      }),
+    );
+  }
+
+  function handleDecreaseClick(productId) {
+    const newProducts = [];
+
+    for (let product of products) {
+      if (product.id === productId) {
+        if (product.count > 1) {
+          newProducts.push({ ...product, count: product.count - 1 });
+        }
+      } else {
+        newProducts.push(product);
+      }
+    }
+
+    setProducts(newProducts);
+  }
+
   return (
-    <>
-      {/* <Button />
-      <MyInput /> */}
-
-      <MyForm />
-    </>
+    <ul>
+      {products.map((product) => (
+        <li key={product.id}>
+          {product.name} (<b>{product.count}</b>)
+          <button
+            onClick={() => {
+              handleIncreaseClick(product.id);
+            }}
+          >
+            +
+          </button>
+          <button onClick={() => handleDecreaseClick(product.id)}>–</button>
+        </li>
+      ))}
+    </ul>
   );
 }
-
-export default App;
