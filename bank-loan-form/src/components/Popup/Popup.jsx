@@ -1,29 +1,3 @@
-// import "./Popup.css";
-
-// export default function Popup({ isVisible, msgErrors }) {
-//   let msg;
-
-//   msgErrors.phoneError && msgErrors.ageError
-//     ? (msg = "Phone and Age Are Invalid")
-//     : msgErrors.phoneError
-//       ? (msg = "Phone Number Is Invalid")
-//       : msgErrors.ageError
-//         ? (msg = "Age Must Be Between 20 To 100")
-//         : (msg = "The Form Hase Been Sent");
-//   return (
-//     <>
-//       <div
-//         className="overlay"
-//         style={isVisible ? { display: "block" } : { display: "none" }}
-//       >
-//         <div className="popup-box">
-//           <h3 className="text">{msg}</h3>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
 import "./Popup.css"
 
 export default function Popup({ isVisible, msgErrors }) {
