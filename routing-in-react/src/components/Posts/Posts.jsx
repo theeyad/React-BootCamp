@@ -7,7 +7,7 @@ export default function Posts() {
 
   let postsList = posts.map((post) => {
     return (
-      <Link key={post.id} to={`/postDetails/${post.id}`}>
+      <Link key={post.id} to={`/posts/${post.id}`}>
         <div
           style={{
             cursor: "pointer",

@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Posts from "./components/Posts/Posts";
 import PostDetails from "./components/PostDetails/PostDetails";
 import { postsContext } from "./Contexts/PostsContext";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   const posts = [
@@ -48,8 +49,11 @@ function App() {
           <Route path="/" element={<h1>Home</h1>} />
           <Route path="/home" element={<h1>Home</h1>} />
           <Route path="/hello" element={<h1>Hello</h1>} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/postDetails/:postId" element={<PostDetails />} />
+          <Route path="/posts">
+            <Route index element={<Posts />} />
+            <Route path=":postId" element={<PostDetails />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </postsContext.Provider>
     </>
