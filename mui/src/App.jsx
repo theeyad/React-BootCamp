@@ -1,0 +1,18 @@
+import "./App.css";
+import AccordionDemo from "./Design";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
+
+function App() {
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AccordionDemo />
+      </ThemeProvider>
+    </>
+  );
+}
+
+export default App;
