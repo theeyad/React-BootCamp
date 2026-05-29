@@ -11,8 +11,6 @@ export default function TodoBox() {
         <Heading />
         <TodosFilter />
         <Todo />
-        <Todo />
-        <Todo />
         <TodoAdd />
       </div>
     </>

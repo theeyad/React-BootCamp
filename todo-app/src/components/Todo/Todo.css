@@ -1,30 +1,21 @@
 /* Individual Todo Item Card */
 .todo-item {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 24px;
+  min-width: 0;
   padding: 16px 20px;
   background-color: rgba(255, 255, 255, 0.03);
   border: 1px solid #1a1a1a;
   border-radius: 6px;
   transition: all 0.2s ease;
   margin-bottom: 12px;
-}
 
-.todo-item:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: #333333;
-}
-
-.todo-content {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: #333333;
+  }
 }
 
 .todo-text {
@@ -43,7 +34,6 @@
 
 .todo-actions {
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;

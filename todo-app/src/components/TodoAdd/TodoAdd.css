@@ -1,7 +1,6 @@
 /* Add Todo Form */
 .add-todo-container {
   display: flex;
-  flex-direction: row-reverse;
   gap: 12px;
   margin-top: 32px;
   padding: 0;

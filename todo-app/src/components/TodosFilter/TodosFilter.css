@@ -1,7 +1,6 @@
 /* Filter Buttons - Secondary Controls */
 .filter-container {
   display: flex;
-  flex-direction: row-reverse;
   gap: 8px;
   justify-content: center;
   margin: 32px 0 24px 0;
