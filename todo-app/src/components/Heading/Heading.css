@@ -1,0 +1,19 @@
+/* Luxury Heading - Bold & Expressive */
+h1 {
+  font-family: "Kufam", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fafafa;
+  margin: 0;
+  padding: 24px 0 32px 0;
+  text-align: center;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+    padding: 16px 0 24px 0;
+  }
+}

@@ -1,0 +1,61 @@
+/* Individual Todo Item Card */
+.todo-item {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid #1a1a1a;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.todo-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: #333333;
+}
+
+.todo-content {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.todo-text {
+  font-family: "Cairo", sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.todo-text.completed {
+  color: #16a34a;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.todo-actions {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .todo-item {
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .todo-text {
+    font-size: 14px;
+  }
+}
