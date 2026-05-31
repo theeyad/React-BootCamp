@@ -17,22 +17,22 @@
   font-size: 16px;
   transition: all 0.2s ease;
   outline: none;
-}
 
-.add-todo-input::placeholder {
-  color: #4b5563;
-  font-family: "Cairo", sans-serif;
-}
+  &::placeholder {
+    color: #4b5563;
+    font-family: "Cairo", sans-serif;
+  }
 
-.add-todo-input:hover {
-  border-color: #333333;
-  background-color: rgba(255, 255, 255, 0.04);
-}
+  &:hover {
+    border-color: #333333;
+    background-color: rgba(255, 255, 255, 0.04);
+  }
 
-.add-todo-input:focus {
-  border-color: #fafafa;
-  background-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 0 3px rgba(250, 250, 250, 0.1);
+  &:focus {
+    border-color: #fafafa;
+    background-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px rgba(250, 250, 250, 0.1);
+  }
 }
 
 .add-todo-button {
@@ -51,27 +51,27 @@
   justify-content: center;
   min-height: 40px;
   white-space: nowrap;
-}
 
-.add-todo-button:hover:not(:disabled) {
-  background-color: #fafafa;
-  color: #000000;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(250, 250, 250, 0.2);
-}
+  &:hover:not(:disabled) {
+    background-color: #fafafa;
+    color: #000000;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(250, 250, 250, 0.2);
+  }
 
-.add-todo-button:active:not(:disabled) {
-  transform: scale(0.98);
-}
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
 
-.add-todo-button:focus-visible {
-  outline: 2px solid #fafafa;
-  outline-offset: 2px;
-}
+  &:focus-visible {
+    outline: 2px solid #fafafa;
+    outline-offset: 2px;
+  }
 
-.add-todo-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 @media (max-width: 768px) {

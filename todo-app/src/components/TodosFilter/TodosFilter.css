@@ -1,7 +1,7 @@
 /* Filter Buttons - Secondary Controls */
 .filter-container {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   justify-content: center;
   margin: 32px 0 24px 0;
   flex-wrap: wrap;
@@ -24,26 +24,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
 
-.filter-button:hover:not(.active) {
-  border-color: #fafafa;
-  background-color: rgba(250, 250, 250, 0.08);
-}
+  &:hover:not(.active) {
+    border-color: #fafafa;
+    background-color: rgba(250, 250, 250, 0.08);
+  }
 
-.filter-button.active {
-  background-color: #fafafa;
-  color: #000000;
-  border-color: #fafafa;
-  box-shadow: 0 4px 12px rgba(250, 250, 250, 0.2);
-}
+  &.active {
+    background-color: #fafafa;
+    color: #000000;
+    border-color: #fafafa;
+    box-shadow: 0 4px 12px rgba(250, 250, 250, 0.2);
+  }
 
-.filter-button:focus-visible {
-  outline: 2px solid #fafafa;
-  outline-offset: 2px;
-}
+  &:focus-visible {
+    outline: 2px solid #fafafa;
+    outline-offset: 2px;
+  }
 
-.filter-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
