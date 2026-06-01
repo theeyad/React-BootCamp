@@ -7,21 +7,18 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function TodoAdd() {
   const [todoTextValue, setTodoTextValue] = useState("");
-  const todos = useContext(TodosContext);
+  const { todos, setTodos } = useContext(TodosContext);
 
   function handleAddTodo() {
-    console.log(todos);
     if (todoTextValue !== "") {
-      const todoId = uuidv4();
-      const todoValue = todoTextValue;
+      setTodos([
+        ...todos,
+        { id: `${uuidv4()}`, value: `${todoTextValue}`, isCompleted: false },
+      ]);
 
-      todos.push({
-        id: `${todoId}`,
-        value: `${todoValue}`,
-        isCompleted: `false`,
-      });
+      setTodoTextValue("");
     } else {
-      <CustomAlert value="Can't Add Todo With No Text" />;
+      <CustomAlert alertValue="Can't Add Todo With No Text" />;
     }
   }
 

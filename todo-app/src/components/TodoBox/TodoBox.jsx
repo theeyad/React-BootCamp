@@ -7,11 +7,11 @@ import { useContext } from "react";
 import { TodosContext } from "@/Contexts/TodosContext";
 
 export default function TodoBox() {
-  const todos = useContext(TodosContext);
+  const { todos } = useContext(TodosContext);
 
   function renderTodos() {
     const todosRendered = todos.map((todo) => {
-      return <Todo key={parseInt(todo.id)} value={todo.value} />;
+      return <Todo key={todo.id} value={todo.value} />;
     });
 
     return todosRendered;

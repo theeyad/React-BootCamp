@@ -3,7 +3,7 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
 import "./Todo.css";
 
-export default function Todo({ value }) {
+export default function Todo({ key, value }) {
   return (
     <>
       <div className="todo-item">
