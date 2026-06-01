@@ -3,14 +3,26 @@ import Todo from "../Todo/Todo";
 import TodoAdd from "../TodoAdd/TodoAdd";
 import TodosFilter from "../TodosFilter/TodosFilter";
 import "./TodoBox.css";
+import { useContext } from "react";
+import { TodosContext } from "@/Contexts/TodosContext";
 
 export default function TodoBox() {
+  const todos = useContext(TodosContext);
+
+  function renderTodos() {
+    const todosRendered = todos.map((todo) => {
+      return <Todo key={parseInt(todo.id)} value={todo.value} />;
+    });
+
+    return todosRendered;
+  }
+
   return (
     <>
       <div className="box rounded-xl px-3 py-5">
         <Heading />
         <TodosFilter />
-        <Todo />
+        {todos.length > 0 ? renderTodos() : null}
         <TodoAdd />
       </div>
     </>

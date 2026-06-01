@@ -3,11 +3,11 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
 import "./Todo.css";
 
-export default function Todo() {
+export default function Todo({ value }) {
   return (
     <>
       <div className="todo-item">
-        <div className="todo-text">أهلا بكم في عالم الالالاند</div>
+        <div className="todo-text">{value}</div>
         <div className="todo-actions">
           <CheckButton />
           <EditButton />
