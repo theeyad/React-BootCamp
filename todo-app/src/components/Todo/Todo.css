@@ -21,15 +21,14 @@
 .todo-text {
   flex: 1;
   font-family: "Cairo", sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   color: #ffffff;
   word-break: break-word;
   line-height: 1.4;
 
   &.completed {
-    color: #16a34a;
+    color: #76767b;
     text-decoration: line-through;
-    opacity: 0.8;
   }
 }
 

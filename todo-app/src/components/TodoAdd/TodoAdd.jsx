@@ -1,25 +1,21 @@
 import { useState } from "react";
-import "./TodoAdd.css";
-import CustomAlert from "../CustomAlert/CustomAlert";
 import { useContext } from "react";
 import { TodosContext } from "@/Contexts/TodosContext";
 import { v4 as uuidv4 } from "uuid";
+import "./TodoAdd.css";
 
 export default function TodoAdd() {
   const [todoTextValue, setTodoTextValue] = useState("");
   const { todos, setTodos } = useContext(TodosContext);
 
   function handleAddTodo() {
-    if (todoTextValue !== "") {
+    if (todoTextValue !== "")
       setTodos([
         ...todos,
         { id: `${uuidv4()}`, value: `${todoTextValue}`, isCompleted: false },
       ]);
 
-      setTodoTextValue("");
-    } else {
-      <CustomAlert alertValue="Can't Add Todo With No Text" />;
-    }
+    setTodoTextValue("");
   }
 
   return (

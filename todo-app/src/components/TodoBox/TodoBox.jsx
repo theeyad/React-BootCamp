@@ -11,7 +11,7 @@ export default function TodoBox() {
 
   function renderTodos() {
     const todosRendered = todos.map((todo) => {
-      return <Todo key={todo.id} value={todo.value} />;
+      return <Todo key={todo.id} todo={todo} />;
     });
 
     return todosRendered;
