@@ -13,10 +13,9 @@
   color: #fafafa;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-size: 15px;
   font-weight: 600;
   font-family: "Cairo", sans-serif;
-  padding: 0;
+  padding: 0px;
   flex-shrink: 0;
 
   &:hover:not(:disabled) {

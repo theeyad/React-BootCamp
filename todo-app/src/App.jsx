@@ -3,11 +3,12 @@ import "./App.css";
 import CustomAlert from "./components/CustomAlert/CustomAlert";
 import TodoBox from "./components/TodoBox/TodoBox";
 import { TodosContext } from "./Contexts/TodosContext";
-import { AlertContext } from "./Contexts/AlertContext";
+import { AlertContext, AlertValueContext } from "./Contexts/AlertContext";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [appear, setAppear] = useState(false);
+  const [alertValue, setAlertValue] = useState("");
 
   return (
     <>
@@ -15,8 +16,10 @@ function App() {
         <div className="max-w-4xl mx-auto px-4">
           <TodosContext.Provider value={{ todos, setTodos }}>
             <AlertContext.Provider value={{ appear, setAppear }}>
-              <TodoBox />
-              {appear ? <CustomAlert alertValue={`something`} /> : <></>}
+              <AlertValueContext.Provider value={{ alertValue, setAlertValue }}>
+                <TodoBox />
+                {appear ? <CustomAlert /> : <></>}
+              </AlertValueContext.Provider>
             </AlertContext.Provider>
           </TodosContext.Provider>
         </div>
