@@ -12,15 +12,14 @@ export default function TodoAdd() {
   const { setAppear } = useContext(AlertContext);
 
   function handleAddTodo() {
-    if (todoTextValue === "") {
+    if (todoTextValue.trim() === "") {
       setAppear(true);
       setAlertValue("لا يمكن إضافة مهمة فارغة");
     } else {
-      if (todoTextValue !== "")
-        setTodos([
-          ...todos,
-          { id: `${uuidv4()}`, value: `${todoTextValue}`, isCompleted: false },
-        ]);
+      setTodos([
+        ...todos,
+        { id: `${uuidv4()}`, value: `${todoTextValue}`, isCompleted: false },
+      ]);
     }
 
     setTodoTextValue("");

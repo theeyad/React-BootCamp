@@ -15,7 +15,7 @@ export default function TodoBox() {
 
   useEffect(() => {
     localStorage.setItem("activeFilter", JSON.stringify(activeFilter));
-  });
+  }, [activeFilter]);
 
   const customTodos =
     activeFilter === "done"
