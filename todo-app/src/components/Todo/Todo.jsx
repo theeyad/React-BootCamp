@@ -3,16 +3,15 @@ import { TodosContext } from "@/Contexts/TodosContext";
 import CheckButton from "../CheckButton/CheckButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
-import { AlertContext } from "@/Contexts/AlertContext";
-import { AlertValueContext } from "@/Contexts/AlertContext";
+import { useAlert, useAlertValue } from "@/Contexts/AlertContext";
 import { useState } from "react";
 
 import "./Todo.css";
 
 export default function Todo({ todo }) {
   const { todos, setTodos } = useContext(TodosContext);
-  const { setAppear } = useContext(AlertContext);
-  const { setAlertValue } = useContext(AlertValueContext);
+  const { setAppear } = useAlert();
+  const { setAlertValue } = useAlertValue();
   const [editValue, setEditValue] = useState("");
 
   function handleCheckButton() {

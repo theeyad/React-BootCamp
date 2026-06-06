@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
-import { AlertValueContext, AlertContext } from "@/Contexts/AlertContext";
+import { useEffect } from "react";
+import {  useAlert, useAlertValue } from "@/Contexts/AlertContext";
 import "./CustomAlert.css";
 
 export default function CustomAlert() {
-  const { alertValue } = useContext(AlertValueContext);
-  const { appear, setAppear } = useContext(AlertContext);
+  const { appear, setAppear } = useAlert();
+  const { alertValue } = useAlertValue();
 
   useEffect(() => {
     if (appear) {

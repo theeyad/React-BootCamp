@@ -8,6 +8,7 @@ import "./TodoBox.css";
 
 export default function TodoBox() {
   const { todos } = useContext(TodosContext);
+  
   const [activeFilter, setActiveFilter] = useState(() => {
     const storedActiveFilter = localStorage.getItem("activeFilter");
     return storedActiveFilter ? JSON.parse(storedActiveFilter) : "all";
