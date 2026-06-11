@@ -19,15 +19,12 @@
   padding: 0;
   flex-shrink: 0;
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled),
+  &.active:not(:disabled) {
     background-color: #16a34a;
     color: #000000;
     transform: scale(1.08);
     box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.96);
   }
 
   &:focus-visible {

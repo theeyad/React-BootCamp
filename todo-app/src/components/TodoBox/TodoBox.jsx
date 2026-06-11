@@ -2,13 +2,13 @@ import Heading from "../Heading/Heading";
 import Todo from "../Todo/Todo";
 import TodoAdd from "../TodoAdd/TodoAdd";
 import TodosFilter from "../TodosFilter/TodosFilter";
-import { useContext, useEffect, useState } from "react";
-import { TodosContext } from "@/Contexts/TodosContext";
+import { useEffect, useState } from "react";
 import "./TodoBox.css";
+import { useTodos } from "@/Contexts/TodosContext";
 
 export default function TodoBox() {
-  const { todos } = useContext(TodosContext);
-  
+  const todos = useTodos();
+
   const [activeFilter, setActiveFilter] = useState(() => {
     const storedActiveFilter = localStorage.getItem("activeFilter");
     return storedActiveFilter ? JSON.parse(storedActiveFilter) : "all";

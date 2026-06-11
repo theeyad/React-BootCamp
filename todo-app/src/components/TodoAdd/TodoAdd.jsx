@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { useContext } from "react";
-import { TodosContext } from "@/Contexts/TodosContext";
+import { useDispatch } from "@/Contexts/TodosContext";
 import { useAlert, useAlertValue } from "@/Contexts/AlertContext";
-import { v4 as uuidv4 } from "uuid";
 import "./TodoAdd.css";
 
 export default function TodoAdd() {
   const [todoTextValue, setTodoTextValue] = useState("");
-  const { setTodos } = useContext(TodosContext);
+  const dispatch = useDispatch();
   const { setAppear } = useAlert();
   const { setAlertValue } = useAlertValue();
 
@@ -16,10 +14,12 @@ export default function TodoAdd() {
       setAppear(true);
       setAlertValue("لا يمكن إضافة مهمة فارغة");
     } else {
-      setTodos((prev) => [
-        ...prev,
-        { id: `${uuidv4()}`, value: `${todoTextValue}`, isCompleted: false },
-      ]);
+      dispatch({
+        type: "add",
+        payload: {
+          todoTextValue: todoTextValue,
+        },
+      });
 
       setAppear(true);
       setAlertValue("تم إضافة مهمة جديدة");

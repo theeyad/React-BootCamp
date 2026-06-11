@@ -1,40 +1,41 @@
-import { useContext } from "react";
-import { TodosContext } from "@/Contexts/TodosContext";
 import CheckButton from "../CheckButton/CheckButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
 import { useAlert, useAlertValue } from "@/Contexts/AlertContext";
 import { useState } from "react";
-
 import "./Todo.css";
+import { useDispatch } from "@/Contexts/TodosContext";
 
 export default function Todo({ todo }) {
-  const { todos, setTodos } = useContext(TodosContext);
+  const dispatch = useDispatch();
   const { setAppear } = useAlert();
   const { setAlertValue } = useAlertValue();
   const [editValue, setEditValue] = useState("");
 
   function handleCheckButton() {
-    setTodos(
-      todos.map((t) =>
-        t.id === todo.id ? { ...t, isCompleted: !t.isCompleted } : t,
-      ),
-    );
-
-    const currentTodo = todos.find((t) => t.id === todo.id);
+    dispatch({
+      type: "check",
+      payload: {
+        todo: todo,
+      },
+    });
 
     setAppear(true);
 
-    !currentTodo.isCompleted
+    !todo.isCompleted
       ? setAlertValue("تم إتمام المهمة")
       : setAlertValue("تم استرجاع المهمة");
   }
 
   function handleEditButton() {
     if (editValue !== "") {
-      setTodos(
-        todos.map((t) => (t.id === todo.id ? { ...t, value: editValue } : t)),
-      );
+    dispatch({
+      type: "edit",
+      payload: {
+        todo: todo,
+        editValue: editValue
+      },
+    });
 
       setAppear(true);
       setAlertValue("تم تعديل المهمة");
@@ -46,7 +47,12 @@ export default function Todo({ todo }) {
   }
 
   function handleDeleteButton() {
-    setTodos(todos.filter((t) => t.id !== todo.id));
+    dispatch({
+      type: "delete",
+      payload: {
+        todo: todo,
+      },
+    });
 
     setAppear(true);
     setAlertValue("تم حذف المهمة");
