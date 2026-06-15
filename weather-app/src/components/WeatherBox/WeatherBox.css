@@ -1,4 +1,10 @@
 .box {
   background-color: #0a3f9e;
   border-radius: 8px;
+  color: white;
+}
+
+hr {
+  border-radius: 5px;
+  border-width: 1px;
 }
