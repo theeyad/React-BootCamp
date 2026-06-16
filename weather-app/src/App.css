@@ -1,7 +1,17 @@
+:root {
+    --main-color: #0048ca
+}
+
 .screen {
-    background-color: #0048ca;
-    min-height: 100vh;
+    background-color: var(--main-color);
+    min-height: calc(100vh - 20px);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.footer {
+    height: 20px;
+    background-color: var(--main-color);
+    color: white;
 }

@@ -1,5 +1,5 @@
 import "./LanguageBtn.css"
 
 export default function LanguageBtn() {
-  return <button className="mt-4 cursor-pointer">الإنجليزية</button>;
+  return <button className="cursor-pointer">الإنجليزية</button>;
 }
