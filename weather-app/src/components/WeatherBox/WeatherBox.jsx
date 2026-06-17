@@ -5,6 +5,7 @@ import "dayjs/locale/ar";
 import "./WeatherBox.css";
 import LanguageBtn from "../LanguageBtn/LanguageBtn";
 import CitySelect from "../CitySelect/citySelect";
+import { useTranslation } from "react-i18next";
 
 // API KEY
 const tomorrowApiKey = import.meta.env.VITE_TOMORROW_API_KEY;
@@ -119,8 +120,13 @@ export default function WeatherBox() {
   const [cityName, setCityName] = useState("Al Manşūrah");
   const [weatherData, setWeatherData] = useState({});
   const [currentDate, setCurrentDate] = useState(null);
+  const { t, i18n } = useTranslation();
 
   dayjs.locale("ar");
+
+  useEffect(() => {
+    i18n.changeLanguage("en");
+  }, [i18n]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -172,7 +178,7 @@ export default function WeatherBox() {
         <div className="box py-4 px-3">
           <div className="heading flex gap-2 items-end-safe mb-3">
             <span className="city-name text-5xl font-bold px-2">
-              {cityNames[cityName]}
+              {t(cityNames[cityName])}
             </span>
             <span className="current-date text-sm">{currentDate}</span>
           </div>
