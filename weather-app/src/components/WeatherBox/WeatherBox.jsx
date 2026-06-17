@@ -4,19 +4,11 @@ import dayjs from "dayjs";
 import "dayjs/locale/ar";
 import "./WeatherBox.css";
 import LanguageBtn from "../LanguageBtn/LanguageBtn";
-import CitySelect from "../CitySelect/citySelect";
+import CitySelect from "../CitySelect/CitySelect";
 import { useTranslation } from "react-i18next";
 
 // API KEY
 const tomorrowApiKey = import.meta.env.VITE_TOMORROW_API_KEY;
-
-const cityNames = {
-  "Al Manşūrah": "المنصورة",
-  Damietta: "دمياط",
-  Cairo: "القاهرة",
-  Ismailia: "الإسماعيلية",
-  "Kafr ash Shaykh": "كفر الشيخ",
-};
 
 const weatherIcons = {
   10000: "weatherIcons/clear_day.svg",
@@ -67,66 +59,18 @@ const weatherIcons = {
   80001: "weatherIcons/tstorm.svg",
 };
 
-const weatherDescription = {
-  10000: "نهار صاف",
-  10001: "ليل صاف",
-  10010: "نهار غائم",
-  10011: "ليل غائم",
-  40000: "نهار مع رذاذ",
-  40001: "ليل مع رذاذ",
-  50010: "نهار مع هبات مطر",
-  50011: "ليل مع هبات مطر",
-  20000: "نهار مع ضباب",
-  20001: "ليل مع ضباب",
-  21000: "نهار مع ضباب خفيف",
-  21001: "ليل مع ضباب خفيف",
-  60000: "نهار مع رذاذ متجمد",
-  60001: "ليل مع رذاذ متجمد",
-  60010: "نهار مع مطر متجمد",
-  60011: "ليل مع مطر متجمد",
-  62010: "نهار مع مطر متجمد شديد",
-  62011: "ليل مع مطر متجمد شديد",
-  62000: "نهار مع مطر متجمد خفيف",
-  62001: "ليل مع مطر متجمد خفيف",
-  70000: "نهار مع حبيبات جليد",
-  70001: "ليل مع حبيبات جليد",
-  71010: "نهار مع حبيبات جليد شديدة",
-  71011: "ليل مع حبيبات جليد شديدة",
-  71020: "نهار مع حبيبات جليد خفيفة",
-  71021: "ليل مع حبيبات جليد خفيفة",
-  11000: "نهار صاف غالبا",
-  11001: "ليل صاف غالبا",
-  11020: "نهار غائم غالبا",
-  11021: "ليل غائم غالبا",
-  11010: "نهار غائم جزئيا",
-  11011: "ليل غائم جزئيا",
-  40010: "نهار ممطر",
-  40011: "ليل ممطر",
-  42010: "نهار ممطر بغزارة",
-  42011: "ليل ممطر بغزارة",
-  42000: "نهار مع مطر خفيف",
-  42001: "ليل مع مطر خفيف",
-  50000: "نهار مثلج",
-  50001: "ليل مثلج",
-  51010: "نهار مع ثلج شديد",
-  51011: "ليل مع ثلج شديد",
-  51000: "نهار مع ثلج خفيف",
-  51001: "ليل مع ثلج خفيف",
-  80000: "نهار عاصف",
-  80001: "ليل عاصف",
-};
-
 export default function WeatherBox() {
   const [cityName, setCityName] = useState("Al Manşūrah");
   const [weatherData, setWeatherData] = useState({});
-  const [currentDate, setCurrentDate] = useState(null);
   const { t, i18n } = useTranslation();
+  const [locale, setLocale] = useState("ar");
 
-  dayjs.locale("ar");
+  dayjs.locale(locale);
 
   useEffect(() => {
-    i18n.changeLanguage("en");
-  }, [i18n]);
+    i18n.changeLanguage(locale);
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+  }, [locale, i18n]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -156,8 +100,6 @@ export default function WeatherBox() {
               weatherIconCode: iconCode,
               weatherDescriptionCode: iconCode,
             });
-
-            setCurrentDate(dayjs().format("DD MMMM YYYY"));
           })
           .catch((error) => {
             if (axios.isCancel(error)) return;
@@ -172,13 +114,15 @@ export default function WeatherBox() {
     return () => controller.abort();
   }, [cityName]);
 
+  const currentDate = dayjs().format("DD MMMM YYYY");
+
   return (
     <>
       <div className="custom-container font-cairo">
         <div className="box py-4 px-3">
           <div className="heading flex gap-2 items-end-safe mb-3">
             <span className="city-name text-5xl font-bold px-2">
-              {t(cityNames[cityName])}
+              {t(`cities.${cityName}`)}
             </span>
             <span className="current-date text-sm">{currentDate}</span>
           </div>
@@ -201,8 +145,9 @@ export default function WeatherBox() {
                 </span>
               </div>
               <p className="description my-3">
-                {weatherDescription[weatherData.weatherDescriptionCode] ??
-                  weatherDescription[10000]}
+                {t(
+                  `weather.${weatherData.weatherDescriptionCode ?? 10000}`,
+                )}
               </p>
             </div>
             <div className="weather-img">
@@ -223,7 +168,7 @@ export default function WeatherBox() {
         </div>
         <div className="lang-btn flex justify-between items-center mt-4">
           <CitySelect setCityName={setCityName} />
-          <LanguageBtn />
+          <LanguageBtn locale={locale} setLocale={setLocale} />
         </div>
       </div>
     </>
