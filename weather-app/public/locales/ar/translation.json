@@ -58,5 +58,6 @@
   "developed_by": "تم التطوير بواسطة إياد",
   "powered_by": "بدعم من Tomorrow.io",
   "loading": "جاري التحميل...",
-  "toggle_lang": "English"
+  "toggle_lang": "English",
+  "Generating weather...": "تحميل بيانات الطقس..."
 }

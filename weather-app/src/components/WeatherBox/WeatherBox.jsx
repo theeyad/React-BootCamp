@@ -6,6 +6,7 @@ import "./WeatherBox.css";
 import LanguageBtn from "../LanguageBtn/LanguageBtn";
 import CitySelect from "../CitySelect/CitySelect";
 import { useTranslation } from "react-i18next";
+import { LoaderFive } from "../ui/loader";
 
 // API KEY
 const tomorrowApiKey = import.meta.env.VITE_TOMORROW_API_KEY;
@@ -62,8 +63,9 @@ const weatherIcons = {
 export default function WeatherBox() {
   const [cityName, setCityName] = useState("Al Manşūrah");
   const [weatherData, setWeatherData] = useState({});
-  const { t, i18n } = useTranslation();
   const [locale, setLocale] = useState("ar");
+  const [loader, setLoader] = useState(true);
+  const { t, i18n } = useTranslation();
 
   dayjs.locale(locale);
 
@@ -74,7 +76,7 @@ export default function WeatherBox() {
 
   useEffect(() => {
     const controller = new AbortController();
-
+    
     const geocodingAPI = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}`;
 
     const hour = new Date().getHours();
@@ -100,6 +102,7 @@ export default function WeatherBox() {
               weatherIconCode: iconCode,
               weatherDescriptionCode: iconCode,
             });
+            setLoader(false);
           })
           .catch((error) => {
             if (axios.isCancel(error)) return;
@@ -128,28 +131,30 @@ export default function WeatherBox() {
           </div>
           <hr />
           <div className="body mt-2 flex justify-between items-center gap-8">
-            <div className="weather-details">
-              <div className="main flex items-center gap-4">
-                <span className="degree font-medium text-8xl">
-                  {weatherData.temp}
-                </span>
-                <span className="icon">
-                  <img
-                    className="w-10"
-                    src={
-                      weatherIcons[weatherData.weatherIconCode] ??
-                      weatherIcons[10000]
-                    }
-                    alt="weather icon"
-                  />
-                </span>
+            {loader ? (
+              <LoaderFive text={t("Generating weather...")} />
+            ) : (
+              <div className="weather-details">
+                <div className="main flex items-center gap-4">
+                  <span className="degree font-medium text-8xl">
+                    {weatherData.temp}
+                  </span>
+                  <span className="icon">
+                    <img
+                      className="w-10"
+                      src={
+                        weatherIcons[weatherData.weatherIconCode] ??
+                        weatherIcons[10000]
+                      }
+                      alt="weather icon"
+                    />
+                  </span>
+                </div>
+                <p className="description my-3">
+                  {t(`weather.${weatherData.weatherDescriptionCode ?? 10000}`)}
+                </p>
               </div>
-              <p className="description my-3">
-                {t(
-                  `weather.${weatherData.weatherDescriptionCode ?? 10000}`,
-                )}
-              </p>
-            </div>
+            )}
             <div className="weather-img">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +171,7 @@ export default function WeatherBox() {
           </div>
         </div>
         <div className="lang-btn flex justify-between items-center mt-4">
-          <CitySelect setCityName={setCityName} />
+          <CitySelect setCityName={setCityName} setLoader={setLoader} />
           <LanguageBtn locale={locale} setLocale={setLocale} />
         </div>
       </div>
