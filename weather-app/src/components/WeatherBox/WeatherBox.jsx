@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/ar";
@@ -7,117 +6,35 @@ import LanguageBtn from "../LanguageBtn/LanguageBtn";
 import CitySelect from "../CitySelect/CitySelect";
 import { useTranslation } from "react-i18next";
 import { LoaderFive } from "../ui/loader";
-
-// API KEY
-const tomorrowApiKey = import.meta.env.VITE_TOMORROW_API_KEY;
-
-const weatherIcons = {
-  10000: "weatherIcons/clear_day.svg",
-  10001: "weatherIcons/clear_night.svg",
-  10010: "weatherIcons/cloudy.svg",
-  10011: "weatherIcons/cloudy.svg",
-  40000: "weatherIcons/drizzle.svg",
-  40001: "weatherIcons/drizzle.svg",
-  50010: "weatherIcons/flurries.svg",
-  50011: "weatherIcons/flurries.svg",
-  20000: "weatherIcons/fog.svg",
-  20001: "weatherIcons/fog.svg",
-  21000: "weatherIcons/fog_light.svg",
-  21001: "weatherIcons/fog_light.svg",
-  60000: "weatherIcons/freezing_drizzle.svg",
-  60001: "weatherIcons/freezing_drizzle.svg",
-  60010: "weatherIcons/freezing_rain.svg",
-  60011: "weatherIcons/freezing_rain.svg",
-  62010: "weatherIcons/freezing_rain_heavy.svg",
-  62011: "weatherIcons/freezing_rain_heavy.svg",
-  62000: "weatherIcons/freezing_rain_light.svg",
-  62001: "weatherIcons/freezing_rain_light.svg",
-  70000: "weatherIcons/ice_pellets.svg",
-  70001: "weatherIcons/ice_pellets.svg",
-  71010: "weatherIcons/ice_pellets_heavy.svg",
-  71011: "weatherIcons/ice_pellets_heavy.svg",
-  71020: "weatherIcons/ice_pellets_light.svg",
-  71021: "weatherIcons/ice_pellets_light.svg",
-  11000: "weatherIcons/mostly_clear_day.svg",
-  11001: "weatherIcons/mostly_clear_night.svg",
-  11020: "weatherIcons/mostly_cloudy.svg",
-  11021: "weatherIcons/mostly_cloudy.svg",
-  11010: "weatherIcons/partly_cloudy_day.svg",
-  11011: "weatherIcons/partly_cloudy_night.svg",
-  40010: "weatherIcons/rain.svg",
-  40011: "weatherIcons/rain.svg",
-  42010: "weatherIcons/rain_heavy.svg",
-  42011: "weatherIcons/rain_heavy.svg",
-  42000: "weatherIcons/rain_light.svg",
-  42001: "weatherIcons/rain_light.svg",
-  50000: "weatherIcons/snow.svg",
-  50001: "weatherIcons/snow.svg",
-  51010: "weatherIcons/snow_heavy.svg",
-  51011: "weatherIcons/snow_heavy.svg",
-  51000: "weatherIcons/snow_light.svg",
-  51001: "weatherIcons/snow_light.svg",
-  80000: "weatherIcons/tstorm.svg",
-  80001: "weatherIcons/tstorm.svg",
-};
+import {
+  getWeatherIcon,
+  getWeatherDescription,
+} from "@/constants/weatherObjectMapping";
+import useWeatherData from "@/hooks/useWeatherData";
 
 export default function WeatherBox() {
   const [cityName, setCityName] = useState("Al Manşūrah");
-  const [weatherData, setWeatherData] = useState({});
+  const { weatherData, loader } = useWeatherData(cityName);
   const [locale, setLocale] = useState("ar");
-  const [loader, setLoader] = useState(true);
   const { t, i18n } = useTranslation();
-
-  dayjs.locale(locale);
+  const [currentDate, setCurrentDate] = useState(
+    dayjs().format("DD MMMM YYYY"),
+  );
 
   useEffect(() => {
     i18n.changeLanguage(locale);
     document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+    dayjs.locale(locale);
+    setCurrentDate(dayjs().format("DD MMMM YYYY"));
   }, [locale, i18n]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    
-    const geocodingAPI = `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}`;
+    const interval = setInterval(() => {
+      setCurrentDate(dayjs().format("DD MMMM YYYY"));
+    }, 60000);
 
-    const hour = new Date().getHours();
-    const isDay = hour >= 6 && hour < 20;
-
-    axios
-      .get(geocodingAPI, { signal: controller.signal })
-      .then((res) => {
-        const cityLat = res.data.results[0].latitude;
-        const cityLong = res.data.results[0].longitude;
-
-        axios
-          .get(
-            `https://api.tomorrow.io/v4/weather/realtime?location=${cityLat},${cityLong}&apikey=${tomorrowApiKey}`,
-            { signal: controller.signal },
-          )
-          .then((res) => {
-            const weatherCode = res.data.data.values.weatherCode;
-            const iconCode = isDay ? `${weatherCode}0` : `${weatherCode}1`;
-
-            setWeatherData({
-              temp: Math.round(res.data.data.values.temperature),
-              weatherIconCode: iconCode,
-              weatherDescriptionCode: iconCode,
-            });
-            setLoader(false);
-          })
-          .catch((error) => {
-            if (axios.isCancel(error)) return;
-            console.error(error);
-          });
-      })
-      .catch((error) => {
-        if (axios.isCancel(error)) return;
-        console.error(error);
-      });
-
-    return () => controller.abort();
-  }, [cityName]);
-
-  const currentDate = dayjs().format("DD MMMM YYYY");
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -143,15 +60,17 @@ export default function WeatherBox() {
                     <img
                       className="w-10"
                       src={
-                        weatherIcons[weatherData.weatherIconCode] ??
-                        weatherIcons[10000]
+                        getWeatherIcon(weatherData.weatherCode) ??
+                        getWeatherIcon(10000)
                       }
                       alt="weather icon"
                     />
                   </span>
                 </div>
                 <p className="description my-3">
-                  {t(`weather.${weatherData.weatherDescriptionCode ?? 10000}`)}
+                  {t(
+                    `weather.${getWeatherDescription(weatherData.weatherCode) ?? 10000}`,
+                  )}
                 </p>
               </div>
             )}
@@ -171,7 +90,7 @@ export default function WeatherBox() {
           </div>
         </div>
         <div className="lang-btn flex justify-between items-center mt-4">
-          <CitySelect setCityName={setCityName} setLoader={setLoader} />
+          <CitySelect setCityName={setCityName} />
           <LanguageBtn locale={locale} setLocale={setLocale} />
         </div>
       </div>

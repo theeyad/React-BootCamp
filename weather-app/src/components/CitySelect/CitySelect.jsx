@@ -1,7 +1,7 @@
 import "./CitySelect.css";
 import { useTranslation } from "react-i18next";
 
-export default function CitySelect({ setCityName, setLoader }) {
+export default function CitySelect({ setCityName }) {
   const { t } = useTranslation();
   return (
     <div className="flex gap-4 items-center text-white">
@@ -13,7 +13,6 @@ export default function CitySelect({ setCityName, setLoader }) {
         id="city"
         onChange={(e) => {
           setCityName(e.target.value)
-          setLoader(true)
         }}
       >
         <option value="Al Manşūrah">{t("cities.Al Manşūrah")}</option>
